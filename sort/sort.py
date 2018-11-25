@@ -2,8 +2,8 @@ import math
 
 
 class Sort:
-    def insertionSort(self, arr, asc=True):
-        l = len(arr)
+    def insertionSort(self, a, asc=True):
+        l = len(a)
         if l > 0:
             for i in range(1, l):
                 for j in range(0, i):
@@ -13,7 +13,7 @@ class Sort:
                         self.swap(a, i, j)
         return
 
-    def bubbleSort(self, arr, asc=True):
+    def bubbleSort(self, a, asc=True):
         l = len(arr)
         if l > 0:
             for i in range(0, l-1):
@@ -64,4 +64,3 @@ class Sort:
         t = a[i]
         a[i] = a[j]
         a[j] = t
-
