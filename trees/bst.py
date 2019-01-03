@@ -84,12 +84,60 @@ class BinarySearchTree:
                         n = s.pop()
                         print(n.data)
 
+    def treeMin(self, root):
+        if not root:
+            print('root empty')
+            return 0
+        r = root
+        while r.left:
+            r = r.left
+        return r.data
+
+    def treeMax(self, root):
+        if not root:
+            print('root empty')
+            return 0
+        r = root
+        while r.right:
+            r = r.right
+        return r.data
+
     def _ifRightChild(self, node, stack):
         s = stack[-1]
         res = True
         if s.right:
             res = s.right.data == node.data
         return res
+
+    def successor(self, node):
+        if not node:
+            print('node empty')
+            return
+        if node.right:
+            return self.treeMin(node.right)
+        else:
+            p = node.parent
+            while p:
+                if node != p.right:
+                    break
+                node = p
+                p = node.parent
+            return p
+
+    def predecessor(self, node):
+        if not node:
+            print('node empty')
+            return
+        if node.left:
+            return self.treeMax(node.left)
+        else:
+            p = node.parent
+            while p:
+                if node != p.left:
+                    break
+                node = p
+                p = node.parent
+            return p
 
 
 t = BinarySearchTree()
@@ -100,4 +148,4 @@ t.insert(t.root, 8)
 t.insert(t.root, 4)
 t.insert(t.root, 11)
 t.insert(t.root, 7)
-
+print(t.predecessor(t.root))
