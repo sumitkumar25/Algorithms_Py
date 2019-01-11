@@ -1,38 +1,21 @@
-# students = [
-#     [
-#         "Sona",
-#         -25.001],
-#     ["Mona",
-#      -25.0001],
-#     ["Mini",
-#      -25.000],
-#     ["Rita",
-#      -25.0]
-# ]
-# res = []
-# # for i in range(0, int(input())):
-# #     s = []
-# #     for j in range(0, 2):
-# #         s.append(input())
-# #     students.append(s)
-# students.sort(key=lambda s: (float(s[1])))
-# min = students[0][1]
-# min2 = False
-# for j in range(1, len(students)):
-#     print(j)
-#     if students[j][1] > min and not min2:
-#         min = students[j][1]
-#         res.append(students[j][0])
-#         min2 = True
-#     elif min2 and students[j][1] == min:
-#         res.append(students[j][0])
+def calculateLamp(m, t):
+    return m-(t[2] - t[1] + 1)
 
-# if len(res) > 1:
-#     res.sort(key=lambda s: (s[0]))
 
-# for r in res:
-#     print(r)
+def gridlandMetro(n, m, k, track):
+    lamp = 0
+    combine = {}
+    for t in track:
+        lamp += calculateLamp(m, t)
+        if t[0] in combine:
+            if t[1] <= combine[t[0]][1]:
+                lamp -= combine[t[0]][1] - t[1] + 1
+        else:
+            combine[t[0]] = t
+    return lamp + (n - len(track)) * m
 
-string = "ABCDCDC"
-sub_string = "CDC"
-print(type(string))
+if __name__ == '__main__':
+    text_file = open('input27.txt','r')
+    lines = text_file.read()
+    print(lines.split('\n'))
+    text_file.close()
