@@ -39,7 +39,7 @@ class Heap:
     def createMaxHeap(self, arr):
         l = len(arr)
         if l:
-            for i in range(math.floor(len(arr))+1, -1, -1):
+            for i in range(int(math.floor(len(arr))+1), -1, -1):
                 self.max_heapify(arr, i, l-1)
             print('max heap', arr)
         else:
@@ -48,7 +48,7 @@ class Heap:
     def createMinHeap(self, arr):
         l = len(arr)
         if l:
-            for i in range(math.floor(len(arr))+1, -1, -1):
+            for i in range(int(math.floor(len(arr))+1), -1, -1):
                 self.min_heapify(arr, i, l-1)
             print('min heap', arr)
         else:
@@ -70,8 +70,38 @@ class Heap:
             heapSize = heapSize - 1
             self.min_heapify(arr, 0, heapSize)
 
+    def mpqGetMaximum(self, S):
+        return S[0]
+
+    def mpqExtractMax(self, S, hs):
+        if hs < 0:
+            print('heap underflow')
+            return None
+        else:
+            max = S[0]
+            S[0] = S[hs]
+            hs = hs-1
+            self.max_heapify(S, 0, hs)
+            return max
+
+    def mpqInsert(self, S, item):
+        S.append(item)
+        self.createMaxHeap(S)
+
+    def mpqIncreaseKey(self, S, i, value):
+        l = len(S)
+        if i < l:
+            if(S[i] > value):
+                print('value less than current value .exit')
+                return
+            S[i] = value
+            self.createMaxHeap(S)
+        else:
+            print('index greater than heapsize')
+
 
 a = [21, 5, 1, 15, 2, 667, 3, 22, 77]
 test = Heap()
-test.heapSortDes(a)
+test.createMaxHeap(a)
+test.mpqInsert(a,1000)
 print(a)

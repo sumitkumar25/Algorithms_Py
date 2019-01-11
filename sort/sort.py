@@ -14,7 +14,7 @@ class Sort:
         return
 
     def bubbleSort(self, a, asc=True):
-        l = len(arr)
+        l = len(a)
         if l > 0:
             for i in range(0, l-1):
                 for j in range(i+1, l):
@@ -36,6 +36,17 @@ class Sort:
         else:
             # print('return ', arr)
             return arr
+
+    def quick(self, a, i, j):
+        if i < j:
+            q = self.partition(a, i, j)
+            self.quick(a, i, q-1)
+            self.quick(a, q+1, j)
+
+    def swap(self, a, i, j):
+        t = a[i]
+        a[i] = a[j]
+        a[j] = t
 
     def merge(self, a1, a2):
         l1 = len(a1)
@@ -60,7 +71,18 @@ class Sort:
             res.extend(a1[i:l1])
         return res
 
-    def swap(self, a, i, j):
-        t = a[i]
-        a[i] = a[j]
-        a[j] = t
+    def partition(self, a, i, j):
+        item = a[j]
+        q = i-1
+        for k in range(i, j):
+            if a[k] <= item:
+                q = q+1
+                self.swap(a, q, k)
+        self.swap(a, q+1, j)
+        return q+1
+
+
+a = [21, 5, 1, 15, 2, 667, 3, 22, 77]
+test = Sort()
+test.quick(a, 0, len(a)-1)
+print(a)
