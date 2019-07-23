@@ -1,5 +1,4 @@
-from node import Node
-
+from linkedList.singleLLNode import Node
 
 class LinkedList:
 
@@ -33,10 +32,3 @@ class LinkedList:
         while it.next:
             it = it.next
         return it
-
-
-test = LinkedList()
-for i in range(5):
-    test.insert(i)
-
-test.getSize()
