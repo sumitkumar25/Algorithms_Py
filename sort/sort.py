@@ -2,6 +2,15 @@ import math
 
 
 class Sort:
+    def insertionSort_While(self, a):
+        for i in range(1, len(a)):
+            curr = a[i]
+            j = i-1
+            while j >= 0 and a[j] > curr:
+                a[j+1] = a[j]
+                j = j-1
+            a[j+1] = curr
+
     def insertionSort(self, a, asc=True):
         l = len(a)
         if l > 0:
@@ -36,6 +45,45 @@ class Sort:
         else:
             # print('return ', arr)
             return arr
+
+    def mergeSort2(self, arr, start, end, call):
+        if start < end:
+            m = math.floor((start + end) / 2)
+            print('mergeSort2', start, m, end, call)
+            self.mergeSort2(arr, start, m, 'first')
+            self.mergeSort2(arr, m+1, end, 'second')
+            self.merge2(arr, start, m, end)
+
+    def merge2(self, arr, start, m, end):
+        l1 = m-start + 1
+        l2 = end - m
+        a1 = [None]*l1
+        a2 = [None]*l2
+        for i in range(l1):
+            a1[i] = arr[start+i]
+        for j in range(l2):
+            a2[j] = arr[m+1+j]
+        #  merge the arrays into arr
+        i = 0
+        j = 0
+        k = start
+        while i < l1 and j < l2:
+            if a1[i] <= a2[j]:
+                arr[k] = a1[i]
+                i = i+1
+            else:
+                arr[k] = a2[j]
+                j = j+1
+            k = k+1
+        # copy remaining
+        while i < l1:
+            arr[k] = a1[i]
+            i = i+1
+            k = k+1
+        while j < l2:
+            arr[k] = a2[j]
+            j = j+1
+            k = k+1
 
     def quick(self, a, i, j):
         if i < j:
@@ -80,9 +128,3 @@ class Sort:
                 self.swap(a, q, k)
         self.swap(a, q+1, j)
         return q+1
-
-
-a = [21, 5, 1, 15, 2, 667, 3, 22, 77]
-test = Sort()
-test.quick(a, 0, len(a)-1)
-print(a)

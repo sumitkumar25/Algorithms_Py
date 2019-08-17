@@ -1,1 +1,1 @@
-__all__ = ["graph", "graphConstruct"]
+__all__ = ["graph", "graphConstruct", "GraphQuestion"]
