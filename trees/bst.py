@@ -1,4 +1,4 @@
-from bstNode import node
+from trees.bstNode import BstNode
 
 
 class BinarySearchTree:
@@ -12,17 +12,17 @@ class BinarySearchTree:
                     if r.left:
                         r = r.left
                     else:
-                        r.left = node(item, None, None, r)
+                        r.left = BstNode(item, None, None, r)
                         break
 
                 elif r.data < item:
                     if r.right:
                         r = r.right
                     else:
-                        r.right = node(item, None, None, r)
+                        r.right = BstNode(item, None, None, r)
                         break
         else:
-            self.root = node(item, None, None, None)
+            self.root = BstNode(item, None, None, None)
 
     def inOrderRecurse(self, root):
         if root:
@@ -102,50 +102,63 @@ class BinarySearchTree:
             r = r.right
         return r.data
 
-    def _ifRightChild(self, node, stack):
+    def _ifRightChild(self, BstNode, stack):
         s = stack[-1]
         res = True
         if s.right:
-            res = s.right.data == node.data
+            res = s.right.data == BstNode.data
         return res
 
-    def successor(self, node):
-        if not node:
-            print('node empty')
+    def successor(self, BstNode):
+        if not BstNode:
+            print('BstNode empty')
             return
-        if node.right:
-            return self.treeMin(node.right)
+        if BstNode.right:
+            return self.treeMin(BstNode.right)
         else:
-            p = node.parent
+            p = BstNode.parent
             while p:
-                if node != p.right:
+                if BstNode != p.right:
                     break
-                node = p
-                p = node.parent
+                BstNode = p
+                p = BstNode.parent
             return p
 
-    def predecessor(self, node):
-        if not node:
-            print('node empty')
+    def predecessor(self, BstNode):
+        if not BstNode:
+            print('BstNode empty')
             return
-        if node.left:
-            return self.treeMax(node.left)
+        if BstNode.left:
+            return self.treeMax(BstNode.left)
         else:
-            p = node.parent
+            p = BstNode.parent
             while p:
-                if node != p.left:
+                if BstNode != p.left:
                     break
-                node = p
-                p = node.parent
+                BstNode = p
+                p = BstNode.parent
             return p
 
+    def helperVOT(self, node, verticalOrder, nodeHeight, resHash):
+        if not node:
+            return
+        if verticalOrder in resHash:
+            resHash[verticalOrder].append((node.data, nodeHeight))
+        else:
+            resHash[verticalOrder] = [(node.data, nodeHeight)]
+        self.helperVOT(node.left, verticalOrder-1, nodeHeight+1, resHash)
+        self.helperVOT(node.right, verticalOrder+1, nodeHeight+1, resHash)
 
-t = BinarySearchTree()
-t.insert(t.root, 10)
-t.insert(t.root, 8)
-t.insert(t.root, 110)
-t.insert(t.root, 8)
-t.insert(t.root, 4)
-t.insert(t.root, 11)
-t.insert(t.root, 7)
-print(t.predecessor(t.root))
+    def verticalOrderTraversal(self, root, rootHeight):
+        if not self.root:
+            return
+        res = {}
+        rootHeight = 0
+        rootVertical = 0
+        self.helperVOT(root, rootVertical, rootHeight, res)
+        keys = list(res.keys())
+        keys.sort()
+        for i in res:
+            res[i].sort(key=lambda tup: tup[1])
+        print(*[res[i][0][0] for i in keys])
+

@@ -17,3 +17,14 @@ class GraphConstruct:
         for i in adjDic.keys():
             adjList[i] = adjDic[i]
         return adjList
+
+    def getAdjacency(self, rows, columns,type):
+        if rows and columns:
+            val = 0
+            if type == 'color':
+                val = 'white'
+            if type == 'predecessor':
+                val = None
+            return [[val for j in range(columns)] for i in range(rows)]
+        else:
+            print('rows and colums not valid')

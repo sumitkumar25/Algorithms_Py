@@ -1,4 +1,4 @@
-class node:
+class BstNode:
     def __init__(self, data, left, right, parent):
         self.data = data
         self.left = left

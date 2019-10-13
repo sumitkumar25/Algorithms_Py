@@ -3,6 +3,9 @@ from graph.graph import Graph
 from graph.questions import GraphQuestion
 from sort.sort import Sort
 from heap.heap import Ds_Heap
+from trees.bst import BinarySearchTree
+from test.test_bellman import TestBellman
+from test.test_graphs import GraphTest
 import math
 
 
@@ -48,6 +51,14 @@ class Executer:
         test.heapSort(arr)
         print(test.heap)
 
+    def testBst(self):
+        test = BinarySearchTree()
+        for i in [47, 2, 40, 20, 38, 30, 14, 28, 10, 16, 19, 44, 39, 27, 7, 9, 31, 12, 43, 21, 5, 41, 34, 49, 13, 33, 3, 4, 25, 22, 29, 15, 32, 35, 6, 24, 23, 26, 1, 11, 42, 36, 37, 17, 18, 8, 45, 48, 50, 46]:
+            #
+            # for i in [4, 2, 10, 3, 1, 6,7, 5,18,19]:
+            test.insert(test.root, i)
+        test.verticalOrderTraversal(test.root, 0)
+
     def executeOption(self, identifier):
         if identifier == 'graph':
             self.graphTest()
@@ -59,8 +70,22 @@ class Executer:
             self.mergeSort()
         elif identifier == 'heap':
             self.testHeap()
+        elif identifier == 'bst':
+            self.testBst()
+        elif identifier == 'path':
+            pathalgo = input('bellman?')
+            if pathalgo == 'bellman':
+                d = TestBellman()
+        d = None
 
 
 if __name__ == "__main__":
-    execute = Executer()
-    execute.executeOption('heap')
+    inputMsg = """
+    Please input data structure choice
+    1.bst
+    """
+    # dataStructure = input(inputMsg)
+    # if dataStructure:
+    #     execute = Executer()
+    #     execute.executeOption(dataStructure)
+    test = GraphTest()
