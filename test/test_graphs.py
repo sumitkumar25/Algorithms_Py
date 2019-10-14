@@ -19,7 +19,4 @@ class GraphTest:
         ]
         vertices = 5
         self.G.setGraphMatrix(vertices, vertices, edges, False,True)
-        self.G.printGrapt_adjMat()
-        for v in range(vertices):
-            self.G.printEdgesFromVertx_adjMat(v)
-            print('edges from ',v,' ends')
+        self.G.dfs_matrix()
